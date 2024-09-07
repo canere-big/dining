@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dining Options Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px;
+            font-size: 18px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .option {
+            font-size: 22px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .highlight {
+            background-color: #FFD700;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 22px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Select Your Dining Option</h2>
+        <input type="text" id="option1" placeholder="Enter option 1"><br>
+        <input type="text" id="option2" placeholder="Enter option 2"><br>
+        <input type="text" id="option3" placeholder="Enter option 3"><br>
+        <button onclick="lightUpOptions()">Pick an Option</button>
+        <div class="option" id="optionDisplay1">Option 1</div>
+        <div class="option" id="optionDisplay2">Option 2</div>
+        <div class="option" id="optionDisplay3">Option 3</div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function lightUpOptions() {
+            const option1 = document.getElementById('option1').value;
+            const option2 = document.getElementById('option2').value;
+            const option3 = document.getElementById('option3').value;
+
+            // Set the display options with the entered values
+            document.getElementById('optionDisplay1').textContent = option1 || "Option 1";
+            document.getElementById('optionDisplay2').textContent = option2 || "Option 2";
+            document.getElementById('optionDisplay3').textContent = option3 || "Option 3";
+
+            const options = [
+                document.getElementById('optionDisplay1'),
+                document.getElementById('optionDisplay2'),
+                document.getElementById('optionDisplay3')
+            ];
+
+            // Light up the options randomly for 3 seconds
+            let interval = setInterval(() => {
+                options.forEach(option => option.classList.remove('highlight'));
+                const randomOption = options[Math.floor(Math.random() * options.length)];
+                randomOption.classList.add('highlight');
+            }, 200);
+
+            // Stop lighting up after 3 seconds and pick the final option
+            setTimeout(() => {
+                clearInterval(interval);
+                const finalOption = options[Math.floor(Math.random() * options.length)];
+                options.forEach(option => option.classList.remove('highlight'));
+                finalOption.classList.add('highlight');
+                document.getElementById('result').textContent = "Your choice: " + finalOption.textContent;
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
